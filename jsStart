@@ -1,0 +1,343 @@
+/*
+'use strict';
+== 一致
+=== 型まで一致
+
+varは使わない
+letとconstを使う
+constは変わらないもの
+varとletの違い
+・同じ変数名を定義できる。
+・ブロック文内に定義しても使用できる。(スコープが違う)
+・変数名だけ先に定義される。
+varと関数宣言分は似ている
+関数宣言分は上書きされる。
+ブロック内もグローバルスコープ(use strictでは不可)。関数ないはスコープ外
+関数宣言分はグローバルオブジェクトのメソッドとなる。
+関数宣言分は初期値まで巻き上げられる。
+
+三項演算
+条件 ? 真 : 偽
+
+何もない
+undefinedはそれ以外
+nullは明示的に設定する(初期値) .  nullは何もないObject
+
+関数
+function add() {}
+let add = fuction () {}
+return num1 + num2; 戻り値・返り値
+
+関数宣言文  ・・・宣言前に実行されても実行される
+function add(a, b) { return}
+関数式 ・・・変数名はなくても可能。宣言後でないと実行できない。
+let sayHi = function sayHi() {}
+
+メソッド・・・オブジェクト内のValueにある関数のこと
+プロパティ・・・オブジェクトのキーとバリューのセット
+オブジェクトのキーは数字(数字の後に文字は不可3ageなど)・文字列・変数(キー・バリュー共に[]で囲う必要がある)が可能。
+呼び出す場合は[]で囲う([]内は変数を探す)
+オブジェクトのキーはすべてStringで管理されている
+
+
+式 = 評価した結果を変数に代入できるもの
+x = 3,  z = 3 + 2, 1 ,
+「関数の呼び出すと言う処理も式」
+function returnNumber() {
+  retunr 7
+}
+文 = 処理の１ステップ。文の中に式を含めることができる。
+const foo = "変数fooに文字列を代入" ※変数宣言 分に式が含まれる。変数に値を代入する」という処理(文)
+if文やfor文なども文に該当する
+if (true) {
+  console.log('文の中の式');
+}
+式文 = 文になった式のこと(式は文になれるが文は式にはなれない)
+①式:関数呼び出し(log関数)、演算(1 + 1)、②文:コンソールに出力するという処理 = 式文
+console.log(1 + 1);
+
+Switch文
+function vegetableColor(vegetable) {
+  switch (vegetable) {
+    case "tomato":
+      console.log("tomato");
+      break;
+    case "pumpukin":
+      console.log("pumpukin");
+      break;
+    case "onion":
+      console.log("onion");
+      break;
+    default:
+      console.log("None")
+  }
+}
+
+ブロック文
+{}
+
+try {
+  console.log(hhjh); //エラーが起きても進む(実行エラーに限る(例外)。構文エラーは対象外⇨初期のJSエンジンでの読み込みでエラーが発生しているから)
+} catch {
+  console.log(ok);　//tryでエラーが起きなければ実行されない
+} finaly { 必須ではない。try catchの結果関係なく、必ず実行される
+
+}
+do {
+  まず必ず実行される
+  console.log(count);
+  count++
+} while (
+  ここの条件でのfalseの場合doに戻る。trueの場合は終了
+  count < 10
+);
+
+for of
+one of them
+for (score of scores) {
+  console.log(score);
+}
+
+Truthy Falsy
+論理演算子
+　&&　 左がTruthyの場合、右を返す。左がFalsyの場合、そのまま左を返す
+　||　左がTruthyの場合、そのまま左を返す。左がFalsyの場合、左を返す
+ const userInput = '';
+const userName = userInput || 'User';
+let username = '' ?? 'User';   ??では nullまたはundefinedの場合は右辺が帰る
+
+オブジェクト
+const coffee = {
+  name: 'Choclate Mocha', nameプロパティの値は'Choclate Mocha'
+  size: 350, sizeプロパティの値は'350'
+};
+
+JSはすべてオブジェクトでオブジェクトの中には値と関数を持っている
+オブジェクトの中では値(変数/定数)をプロパティ、関数のことをメソッドと言う。
+const test = 'test' . // string型のオブジェクト
+
+コールバック関数
+関数の中に関数がある。
+
+あろー関数
+const getItem = (test) => { console.log(test) };
+引数が一つなら()入らない。0個なら省略不可。()だけ
+const test = test => console.log();
+処理が1行なら{}不要 returnも省略
+const tax = (price, tax) => price * tax ;
+
+JSはキャメル係数 checkPostCode
+スネーク係数 check_Post_Code
+
+オブジェクトの中で値を使う this
+
+コールバック関数・・・関数の引数に関数を入れることを
+let subtract = (a,b,callback) => {
+  let result = a - b;
+  callback(result);
+}
+subtract(10,4,(result) => {
+  console.log(result);
+});
+
+object以外はすべてprimitive・・・データの持ち方が違う
+primitiveはメモリに変数名の領域を確保し値を保存する。
+objectはKey・プロパティを別の領域に管理し、その領域を変数名の領域に管理する。別の変数にオブジェクトを代入する場合は値ではなく別領域の情報を渡す。
+
+レキシカル環境(Enviroment環境)
+変数など定義した領域のようなもの・オブジェクトのように管理される。
+内部になるほどouterEnvというプロパティを定義してその値はその外部のレキシカル環境のアドレス
+関数は定義された時にオブジェクトだけ作り値はEnviromentプロパティ(その関数が造られたレキシカル環境の場所を示す)なる。
+実行された時に時に新たにレキシカル環境を作りOuterEnvの値は定義時のEnvironmentになる。
+クロージャ・・・外部の変数の情報を持った関数(幅広く使われておりJS特有ではない。JSでは関数オブジェクトのEnvironmentのこと)
+
+再起関数
+let factorial =(n) => return n * factorial (n -1);
+
+スペレット構文・・・オブジェクトのコピーをしても影響させない
+コピー元オブジェクトの前に...obujectとする。オブジェクト内のオブジェクトには別途でオブジェクトを作りその中でスプレッド構文を記載する必要がある。
+Object.assign(o1、o2,o3) o1はo2,o3のオブジェクトが後ろ優先ですべて上書きされる。
+
+
+※よく使う
+分割代入・・・オブジェクトのプロパティを分割して取得できる
+//オブジェクトの定義
+const book = {
+  title: 'JAVA',
+  price: 9.99,
+  author: {
+    firstName: 'OTA',
+    lastName: 'pi',
+  },
+  isbn: 123456789,
+  description: 'About Javascript',
+};
+//取得方法
+const {
+  title: booktitle,  ////別名をつけることもできる
+  price,
+  author: { firstName, lastName }, ////元オブジェクト内のオブジェクトの取得方法
+  pulisher: pub = 'PRE', ////新たにプロパティも定義でき、:で別名も定義できる
+  ...etc  ////元オブジェクトから取得されていないプロパティすべてをオブジェクトととして取得する。
+} = book;   /////取得元のオブジェクトを指定する。
+
+console.log(booktitle, price, firstName,lastName,pub,etc);   ////呼び出し方。
+/////関数の引数に入れる場合
+const sayBook = ( {
+    title: booktitle,
+  price,
+  author: { firstName, lastName },
+  pulisher: pub = "PRE",
+  ...etc
+}) => {console.log(booktitle, price, firstName, lastName, pub, etc);};
+
+in演算子・・・オブジェクトの中に指定のプロパティがあればTrueを返す。
+console.log('hello' in book);
+
+オプショナルチェーン
+user?.address ?の前を評価しnullまたはundefinedの場合、.の後を評価せずにundefinedを返す。
+
+
+Thisについて
+this: stricr ? underfined : global object
+thisは呼び出し方によって変わる。場所をしてせずに実行すると作られた場所を示す。
+thisを特定のオブジェクトに指定したい場合・・・callメソッド(第一引数)
+let sayThis = function () {
+  console.log(this);   //Thisはグローバルオブジェクトになる
+};
+
+const car = {
+  color: 'red',
+  sayThis,   // オブジェクト内でのThisは実行されたオブジェクトになる。
+}
+car.sayThis();  //出力はcarオブジェクト
+
+アロー関数では実行された時にThisは持たなくなる。
+
+bind・・・新たば関数オブジェクトを作る。代入する必要がある。使用するとThisは固定される。callメソッドよりも強い
+アロー関数を記述するとアロー関数が勝つ。パラメータは残る。
+
+オブジェクト内のプロパティを取得するにはメソッドにする必要がある。
+getter
+関数をプロパティのように扱うようにできる。
+アロー関数、functionは不可。get total () {}の形
+setter
+オブジェクトに新しい値が代入された時に実行される関数
+データプロパティ・・・keyと一つのバリューのセット
+アクセスプロパティ・・・キーと一つまたは二つの関数のセット
+  // get total() {
+  //   return this.servingSize * this.member;
+  // },
+  // set total(newValue) {
+  //   this.member = newValue / this.servingSize;
+  // }
+
+*/
+
+"use strict";
+
+// const book = {
+//   title: 'JAVA',
+//   price: 9.99,
+//   author: {
+//     firstName: 'OTA',
+//     lastName: 'pi',
+//   },
+//   isbn: 123456789,
+//   description: 'About Javascript',
+// };
+
+// const sayBook = ({
+//   title: bookTitle,
+//   price,
+//   author: { firstName, lastName },
+//   publisher: pub = 'Hiro',
+//   ...etc
+// }) => { console.log(bookTitle, price, firstName, lastName, pub, etc); };
+
+// sayBook(book);
+// console.log(this);
+
+/*
+le -
+sayThis {}
+logging {}
+car {}
+
+le -
+car.changeColor()
+*/
+let sayThis = () => {
+  console.log(this);
+};
+
+let logging = (cb) => {
+  console.log(cb());
+};
+
+const car = {
+  color: "red",
+  sayThis,
+  changeColor(color) {
+    logging(function () {
+      return this.color;
+    });
+    this.color = color;
+  },
+};
+
+// car.changeColor('white');
+
+// car.sayThis();
+
+// sayThis =  (a,b) =>  {
+//   console.log(this,a,b);
+// };
+
+// // sayThis.call({ helo: 'heloo' },1,2);
+// // sayThis.apply({ hello: 'hello' },[1,2]);
+// sayThis =sayThis.bind({ hello: 'hello' },1);
+// sayThis(4343434);
+
+const pastaCalculator = {
+  servingSize: 60,
+  member: 4,
+
+  // get total() {
+  //   return this.servingSize * this.member;
+  // },
+  // set total(newValue) {
+  //   this.member = newValue / this.servingSize;
+  // }
+};
+
+Object.defineProperty(pastaCalculator, 'total', {
+  configurable: true,
+  enumerable: true,
+  get() {
+
+  },
+  set() {
+
+  },
+})
+// pastaCalculator.total = 600;
+// console.log(pastaCalculator.total);
+// console.log(pastaCalculator);
+
+console.log(Object.getOwnPropertyDescriptor(pastaCalculator, 'total'))
+
+const blog = {
+  title: 'How to make cake',
+  author: 'Honda',
+}
+
+console.log(Object.isExtensible(blog))
+Object.preventExtensions(blog);
+
+console.log(Object.isExtensible(blog));
+Object.seal(blog);
+Object.freeze(blog);
+console.log(Object.isExtensible(blog));
+console.log(Object.getOwnPropertyDescriptor(blog, 'title'));
+blog.hello = 'hello;'
